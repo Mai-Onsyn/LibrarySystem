@@ -115,14 +115,11 @@ export String formatTimeMillis(const Long time, const String &format) {
                 break;
             }
             case 'S': {
-                // 毫秒部分固定 0-999，若 count>3 则忽略多余的宽度限制
                 int width = (count > 3) ? 3 : count;
                 result += formatNumber(static_cast<int>(millisPart), width);
                 break;
             }
-            default:
-                // 不会执行到这里
-                break;
+            default: break;
         }
     }
     return result;

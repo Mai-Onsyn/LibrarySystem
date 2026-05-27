@@ -50,13 +50,28 @@ void append(stringstream& ss, const char* fmt, Int& offset, const T& value) {
                     ss << value;
                 }
                 break;
+            case '<':
+                if (fmt[offset] >= '0' && fmt[offset] <= '9') {
+                    char* endPtr = nullptr;
+                    const auto precision = strtol(fmt + offset, &endPtr, 10);
+                    const auto len = endPtr - (fmt + offset);
+                    if (fmt[offset + len] == 'f') {
+                        ss << fixed << setprecision(precision) << value;
+                        ss.unsetf(ios::fixed);
+                        offset += len + 1;
+                    } else {
+                        ss << value;
+                    }
+                } else {
+                    ss << value;
+                }
             default: ss << value;
         }
     }
 }
 
 export template<typename... Args>
-String format(const String& format, Args... args) {
+String format(const String &format, Args &&... args) {
     stringstream ss;
     const auto & fmt = format.c_str();
     Int writeOffset = 0;
