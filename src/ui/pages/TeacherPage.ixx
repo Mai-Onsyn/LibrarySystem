@@ -1,16 +1,17 @@
 module;
 #include <iostream>
-export module pages.RegisterPage;
+export module pages.TeacherPage;
 import Format;
 import Types;
 import Logger;
 import Page;
 import PageState;
 
-export class RegisterPage final : public Page {
+export class TeacherPage final : public Page {
+public:
     PageState draw() override {
         drawer.drawHorizontalLine();
-        drawer.drawBorderedLine("Register Page");
+        drawer.drawBorderedLine("Teacher Page");
         drawer.drawHorizontalLine();
         wait();
         return PageState::Welcome;

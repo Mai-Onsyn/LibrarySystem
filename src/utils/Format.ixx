@@ -83,3 +83,10 @@ String format(const String &format, Args &&... args) {
     append(ss, fmt, writeOffset, "");
     return ss.str();
 }
+
+export namespace Stringf {
+    template<typename... Args>
+    std::string format(const std::string &format, Args &&... args) {
+        return ::format(String(format), args...);
+    }
+}

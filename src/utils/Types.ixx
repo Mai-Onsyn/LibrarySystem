@@ -33,6 +33,7 @@ public:
 export template<typename K, typename V> using Map = std::map<K, V>;
 
 export template<typename T> using UniquePtr = std::unique_ptr<T>;
+export template<typename T> using SharedPtr = std::shared_ptr<T>;
 export using std::make_unique;
 export using std::cin;
 export using std::cout;
