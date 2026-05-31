@@ -15,16 +15,3 @@ target_sources(${PROJECT_NAME} PUBLIC
         BASE_DIRS src
         FILES ${MODULES}
 )
-
-file(GLOB_RECURSE ASSETS_FILES
-        CONFIGURE_DEPENDS
-        "${CMAKE_CURRENT_SOURCE_DIR}/assets/*"
-)
-add_custom_target(copy_assets ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/assets"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets"
-        DEPENDS ${ASSETS_FILES}
-        COMMENT "Copying assets to executable directory"
-)
-add_dependencies(${PROJECT_NAME} copy_assets)

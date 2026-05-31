@@ -30,7 +30,7 @@ public:
 #endif
     }
 protected:
-    ConsoleDrawer drawer{};
+    ConsoleDrawer drawer{70};
 
     /**
      * @tparam T 请求类型

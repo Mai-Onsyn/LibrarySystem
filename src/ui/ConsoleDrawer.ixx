@@ -111,11 +111,46 @@ public:
 
     void drawOption(Int index, const String& content, const String& ch = " ") const {
         cout << ch;
-        cout << Stringf::format("[%d] %s\n", index, content);
+        if (index == -1) cout << Stringf::format("[任意键] %s\n", content);
+        else cout << Stringf::format("[%d] %s\n", index, content);
     }
 
     void drawBorderedOption(Int index, const String& content, const String& ch = "|") const {
-        drawBorderedLine(Stringf::format(" [%d] %s", index, content), Left, ch);
+        if (index == -1) drawBorderedLine(Stringf::format(" [任意键] %s", content), Left, ch);
+        else drawBorderedLine(Stringf::format(" [%d] %s", index, content), Left, ch);
+    }
+
+    void drawDoubleMessage(const String& content1, const String& content2, const String& ch = "|") const {
+        const Int half = lineWidth / 2 - 1;
+        cout << ch << content1;
+        repeat(' ', half - calcDisplayWidth(content1));
+        cout << content2;
+        repeat(' ', half - calcDisplayWidth(content2));
+        cout << ch << endl;
+    }
+
+    void drawTripleMessage(const String& content1, const String& content2, const String& content3, const String& ch = "|") const {
+        const Int part = (lineWidth - 2) / 3;
+        cout << ch << content1;
+        repeat(' ', lineWidth - 2 - 2 * part - calcDisplayWidth(content1));
+        cout << content2;
+        repeat(' ', part - calcDisplayWidth(content2));
+        cout << content3;
+        repeat(' ', part - calcDisplayWidth(content3));
+        cout << ch << endl;
+    }
+
+    void draw4ColumnMessage(const String& content1, const String& content2, const String& content3, const String& content4, const String& ch = "|") const {
+        const Int part = (lineWidth - 2) / 4;
+        cout << ch << content1;
+        repeat(' ', lineWidth - 2 - 3 * part - calcDisplayWidth(content1));
+        cout << content2;
+        repeat(' ', part - calcDisplayWidth(content2));
+        cout << content3;
+        repeat(' ', part - calcDisplayWidth(content3));
+        cout << content4;
+        repeat(' ', part - calcDisplayWidth(content4));
+        cout << ch << endl;
     }
 
     void drawTip(const String &content) const {
@@ -124,5 +159,13 @@ public:
 
     void drawMessage(const String &content) const {
         cout << content << endl;
+    }
+
+    void clearLine() {
+        cout << "\r\033[2K";
+    }
+
+    void moveUp() {
+        cout << "\033[1A";
     }
 };

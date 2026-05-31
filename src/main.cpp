@@ -1,16 +1,11 @@
 #include <iostream>
-import Format;
-import Types;
-import Application;
-import Hash;
-import Time;
 import Runtime;
+import Application;
 
 int main() {
-
+    system("chcp 65001");
     sqlite->connect();
     initSql(sqlite.get());
-    system("chcp 65001");
     Application app;
     app.run();
 

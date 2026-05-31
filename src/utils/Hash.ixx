@@ -152,3 +152,17 @@ public:
         return hash;
     }
 };
+
+export Long hash64(const std::string_view str) {
+    constexpr ULong offset = 14695981039346656037ULL;
+
+    ULong hash = offset;
+
+    for (const unsigned char c : str) {
+        constexpr ULong prime  = 1099511628211ULL;
+        hash ^= c;
+        hash *= prime;
+    }
+
+    return static_cast<Long>(hash);
+}

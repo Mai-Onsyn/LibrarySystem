@@ -16,7 +16,7 @@ public:
         drawer.drawHorizontalLine();
         drawer.drawBorderedOption(1, "用户登录");
         drawer.drawBorderedOption(2, "学生注册");
-        drawer.drawBorderedOption(3, "退出系统");
+        drawer.drawBorderedOption(0, "退出系统");
         drawer.drawHorizontalLine("-");
         drawer.drawTip("选择操作");
         while (true) {
@@ -25,9 +25,9 @@ public:
             switch (option) {
                 case 1: return PageState::Login;
                 case 2: return PageState::Register;
-                case 3: return PageState::Exit;
+                case 0: return PageState::Exit;
                 default:
-                    onErrorInput("1-3");
+                    onErrorInput("0-2");
                     clearScreen();
                     goto start;
             }

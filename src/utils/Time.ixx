@@ -33,7 +33,7 @@ static TimeBuffer toLocalTime(const Long millis) {
 #endif
 }
 
-export String formatTimeMillis(const Long time, const String &format) {
+export String formatTimeMillis(const Long time, const String &format = "yy-MM-dd HH:mm") {
     // 1. 分离毫秒部分
     const Long millisPart = time % 1000;
     const TimeBuffer tm = toLocalTime(time);

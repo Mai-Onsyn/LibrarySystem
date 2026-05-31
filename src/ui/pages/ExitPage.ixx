@@ -15,7 +15,7 @@ public:
         if (boolInput()) {
             return PageState::Terminate;
         }
-        switch (currentAccountType) {
+        switch (currentUser.getType()) {
             case Admin:
                 return PageState::AdminMenu;
             case Teacher:

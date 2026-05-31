@@ -3,6 +3,7 @@ module;
 #include "sqlite3.h"
 export module SqliteConnection;
 import Types;
+import Format;
 
 struct SqliteDeleter {
     void operator()(sqlite3* db) const { sqlite3_close_v2(db); }
@@ -96,7 +97,7 @@ public:
     }
 
     template<typename T, typename... Args>
-    List<T> query(const String& sql, Args&&... args) const {
+    List<T> query(const String& sql, const Int column, Args&&... args) const {
         const PreparedStatement ps = prepare(sql, std::forward<Args>(args)...);
 
         using RawType = std::remove_cvref_t<T>;
@@ -105,20 +106,20 @@ public:
             const Int result = sqlite3_step(ps.get());
             if (result == SQLITE_ROW) {
                 if constexpr (std::is_same_v<RawType, Boolean>) {
-                    list.add(sqlite3_column_int(ps.get(), 0) != 0);
+                    list.add(sqlite3_column_int(ps.get(), column) != 0);
                 }
                 else if constexpr (std::is_same_v<RawType, Int>) {
-                    list.add(sqlite3_column_int(ps.get(), 0));
+                    list.add(sqlite3_column_int(ps.get(), column));
                 }
                 else if constexpr (std::is_same_v<RawType, Long>) {
-                    list.add(sqlite3_column_int64(ps.get(), 0));
+                    list.add(sqlite3_column_int64(ps.get(), column));
                 }
                 else if constexpr (std::is_floating_point_v<RawType>) {
-                    list.add(sqlite3_column_double(ps.get(), 0));
+                    list.add(sqlite3_column_double(ps.get(), column));
                 }
                 else if constexpr (std::is_same_v<RawType, String>) {
                     const auto text = reinterpret_cast<const char*>(
-                        sqlite3_column_text(ps.get(), 0)
+                        sqlite3_column_text(ps.get(), column)
                     );
                     list.add(text ? String(text) : String());
                 }
@@ -132,5 +133,10 @@ public:
             }
         }
         return list;
+    }
+
+    Boolean containsID(const String& tableName, const Long id) const {
+        auto result = query<Int>(Stringf::format("select 1 from %s where id = ? limit 1", tableName), 0, id);
+        return !result.isEmpty();
     }
 };

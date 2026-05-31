@@ -7,7 +7,7 @@ export class Storable {
 public:
     virtual ~Storable() = default;
 
-    virtual void store(SqliteConnection* connection) = 0;
+    virtual void store(const SqliteConnection* connection) = 0;
 
-    virtual Storable* load(SqliteConnection* connection) = 0;
+    static Storable* load(const SqliteConnection* connection);
 };

@@ -75,7 +75,7 @@ public:
         this->currentPage = page;
     }
 
-    PageState getPage() const {
+    [[nodiscard]] PageState getPage() const {
         return currentPage;
     }
 };

@@ -11,6 +11,7 @@ export typedef std::string String;
 export typedef bool Boolean;
 export typedef int32_t Int;
 export typedef int64_t Long;
+export typedef uint64_t ULong;
 export typedef double Double;
 export typedef float Float;
 export typedef std::mutex Mutex;
@@ -25,8 +26,19 @@ public:
     using std::vector<T, Alloc>::vector;
 
     template <typename... Args>
-    decltype(auto) add(Args&&... args) {
-        return this->emplace_back(std::forward<Args>(args)...);
+    void add(Args&&... args) {
+        this->emplace_back(std::forward<Args>(args)...);
+    }
+
+    Boolean isEmpty() {
+        return this->empty();
+    }
+
+    Boolean contains(const T& value) {
+        for (const auto& v : *this) {
+            if (v == value) return true;
+        }
+        return false;
     }
 };
 
