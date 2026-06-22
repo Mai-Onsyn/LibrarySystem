@@ -81,21 +81,17 @@ protected:
     std::optional<String> readLineWithCancel(const Boolean password = false) {
         String input;
         char ch;
-
         while (true) {
             ch = _getch();
-
-            // ESC
+            // ESC / TAB
             if (ch == 27 || ch == 9) {
                 return std::nullopt;
             }
-
             // Enter
             if (ch == 13) {
                 cout << std::endl;
                 return input;
             }
-
             // BackScape
             if (ch == 8) {
                 if (!input.empty()) {
@@ -104,7 +100,6 @@ protected:
                 }
                 continue;
             }
-
             // 一般字符
             if (ch >= 32 && ch <= 126) {
                 input.push_back(ch);
