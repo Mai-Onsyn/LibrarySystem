@@ -3,7 +3,6 @@ module;
 export module pages.AdminPage;
 import Format;
 import Types;
-import Logger;
 import Page;
 import PageState;
 import User;
@@ -23,7 +22,7 @@ export class AdminPage final : public UserPage {
 
         const String info = Stringf::format("当前馆藏: %d | 异常超期: %d",
             Book::getTotalBookCount(sqlite.get()),
-            Record::getOverdueCount(0, sqlite.get()));
+            Record::getOverdueCount(std::stoll(Config::get("MaxBorrowDuration")), sqlite.get()));
         drawer.drawBorderedLine(info);
         drawer.drawHorizontalLine();
 

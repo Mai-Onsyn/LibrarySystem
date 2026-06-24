@@ -40,12 +40,12 @@ export class SHA256 {
     }
 
 public:
-    static String hash(const std::string_view input) {
+    static String hash(const String& input) {
         SHA256 sha;
 
-        std::vector<uint8_t> data(input.begin(), input.end());
+        List<uint8_t> data(input.begin(), input.end());
 
-        uint64_t bitLen = data.size() * 8ULL;
+        ULong bitLen = data.size() * 8ULL;
 
         data.push_back(0x80);
 
@@ -158,7 +158,7 @@ export Long hash64(const std::string_view str) {
 
     ULong hash = offset;
 
-    for (const unsigned char c : str) {
+    for (const uint8_t c : str) {
         constexpr ULong prime  = 1099511628211ULL;
         hash ^= c;
         hash *= prime;

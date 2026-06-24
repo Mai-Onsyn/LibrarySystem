@@ -4,7 +4,6 @@ module;
 export module pages.TeacherPage;
 import Format;
 import Types;
-import Logger;
 import Page;
 import PageState;
 import UserPage;

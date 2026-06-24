@@ -3,7 +3,6 @@ module;
 export module pages.ExitPage;
 import Format;
 import Types;
-import Logger;
 import Page;
 import PageState;
 import User;

@@ -123,7 +123,7 @@ protected:
         for (const auto &recordId : records) {
             UniquePtr<Record> record(Record::loadById(recordId, sqlite.get()));
             auto [code, title] = record->getBookCodeAndTitle(sqlite.get());
-            drawer.drawTripleMessage(code, title, formatTimeMillis(record->getBorrowDate(), "yy-mm-dd HH:mm"));
+            drawer.drawTripleMessage(code, title, formatTimeMillis(record->getBorrowDate(), "yy-MM-dd HH:mm"));
             recordElements.add(std::pair{code, std::move(record)});
         }
         drawer.drawHorizontalLine("-");

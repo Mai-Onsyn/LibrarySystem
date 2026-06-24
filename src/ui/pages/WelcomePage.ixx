@@ -3,7 +3,6 @@ module;
 export module pages.WelcomePage;
 import Format;
 import Types;
-import Logger;
 import Page;
 import PageState;
 
